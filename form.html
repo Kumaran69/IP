@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register Form</title>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1.8px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: greenyellow;
+        }
+
+        #error {
+            margin-top: 15px;
+            color: red;
+            font-weight: bold;
+            min-height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Student Registration</h1>
+        <form id="registerForm" onsubmit="return validateForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required />
+   
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+   
+            <label for="password">Password:</label>
+            <input type="password" id="password" required />
+   
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required />
+   
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" placeholder="10-digit number" required />
+   
+            <label for="creditCard">Credit Card Number:</label>
+            <input type="text" id="creditCard" placeholder="16-digit number" maxlength="19" required />
+   
+            <button type="submit">Register</button>
+        </form>
+        <p id="error" style="color:red;"></p>
+        <p id="successDate" style="color:green;"></p>
+    </div>
+   
+
+    <script>
+      function validateForm() {
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const creditCard = document.getElementById("creditCard").value.replace(/\s+/g, ''); 
+    const phone = document.getElementById("phone").value.trim();
+    const errorElement = document.getElementById("error");
+    const successDateElement = document.getElementById("successDate");
+
+    errorElement.textContent = "";
+    successDateElement.textContent = "";
+
+
+    if (username.length < 3) {
+        errorElement.textContent = "Username must be at least 3 characters long.";
+        return false;
+    }
+
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        errorElement.textContent = "Please enter a valid email address.";
+        return false;
+    }
+
+
+    if (password.length < 6) {
+        errorElement.textContent = "Password must be at least 6 characters long.";
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        errorElement.textContent = "Passwords do not match.";
+        return false;
+    }
+
+    const creditCardRegex = /^\d{16}$/;
+    if (!creditCardRegex.test(creditCard)) {
+        errorElement.textContent = "Please enter a valid 16-digit credit card number.";
+        return false;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+        errorElement.textContent = "Please enter a valid 10-digit phone number.";
+        return false;
+    }
+
+    const currentDate = new Date();
+    const options = { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+
+    alert(
+      "Registration successful! Welcome, " + username + "!\n" +
+      "Registered on: " + currentDate.toLocaleDateString(undefined, options) + " "
+     
+    );
+
+    return true;
+}
+
+
+    </script>
+</body>
+
+</html>
