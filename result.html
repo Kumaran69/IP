@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Exam Result</h2>
+    <p>User: <span th:text="${user}"></span></p>
+    <p>Score: <span th:text="${score}"></span> / <span th:text="${total}"></span></p>
+    <a href="/login"><button>Back to Login</button></a>
+</div>
+</body>
+</html>
